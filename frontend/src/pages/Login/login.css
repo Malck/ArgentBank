@@ -1,0 +1,6 @@
+.sign-in-content .error {
+    display: flex;
+    padding-left: 3px;
+    padding-top: 5px;
+    color: red;
+}

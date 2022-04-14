@@ -19,6 +19,8 @@ html {
   
   .bg-dark {
     background-color: #12002b;
+    height: 750px;
+    padding-top: 3rem;
   }
   
   .sr-only {
@@ -170,7 +172,7 @@ html {
     background-color: white;
     width: 300px;
     margin: 0 auto;
-    margin-top: 3rem;
+    /*margin-top: 3rem;*/
     padding: 2rem;
   }
   

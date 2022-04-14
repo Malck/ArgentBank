@@ -1,7 +1,7 @@
 .error-page{
-    color:#FF6060;
+    color:#00bc77;
     position: relative;
-    height: 1024px;
+    height: 800px;
 }
 
 .number-of-error {
@@ -33,7 +33,7 @@
     margin-top: 180px;
     margin-bottom: 100px;
     text-decoration: underline;
-    color: #FF6060;
+    color: #00bc77;
 
 }
 
