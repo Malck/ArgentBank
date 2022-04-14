@@ -1,20 +1,58 @@
-import HeaderBank from "../../assets/argentBankLogo.png"
+import "../Header/header.css";
+import HeaderBank from "../../assets/argentBankLogo.png";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LogOut } from "../../Store/TodoSlice";
 
-export default function Header(){
-    return(
-        <nav class="main-nav">
-          <a class="main-nav-logo" href="./index.html"> 
-            <img class="main-nav-logo-image" src={HeaderBank} alt="Argent Bank Logo"/>
-            <h1 class="sr-only">Argent Bank</h1>
-          </a>
+export default function Header() {
+  const data = useSelector((state) => state.UserState);
+  const dispatch = useDispatch();
+  const isUserLoggedIn = useSelector((state) => state.UserState.loggedIn);
+  const first = useSelector((state) => state.UserState.firstName);
 
-          <div>
-            <a class="main-nav-item" href="./sign-in.html">
-            <i class="fa fa-user-circle"></i> Sign In
-            </a>
+  return (
+
+    <nav className="main-nav">
+
+      <Link to="/" className="main-nav-logo">
+        <img
+          className="main-nav-logo-image"
+          src={HeaderBank}
+          alt="Argent Bank Logo"/>
+        <h1 className="sr-only">Argent Bank</h1>
+      </Link>
+
+      {isUserLoggedIn ? (
+
+        <div className="loggedIn">
+
+          <div className="user-loggedIn">
+            <i className="fa fa-user-circle fa-1x"></i>
+            <p>{first}</p>
           </div>
 
-        </nav>
+          <Link
+            onClick={() => dispatch(LogOut({ ...data, loggedIn: false }))}
+            to="/"
+            className="main-nav-item">
 
-    )
+            <i className="fa fa-sign-out fa-1x"></i>
+            <p>Sign Out</p>
+          </Link>
+
+        </div>
+
+      ) : (
+
+        <div className="loggedOut">
+          <Link to="/Login" className="main-nav-item">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        </div>
+
+      )}
+
+    </nav>
+  );
 }

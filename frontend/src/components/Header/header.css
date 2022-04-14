@@ -1,0 +1,28 @@
+i.fa.fa-user-circle {
+    padding-right: 5px;
+}
+.loggedIn {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 200px;
+    justify-content: space-between;
+    align-items: center;
+  }
+.user-loggedIn {
+    display: flex;
+    align-items: center;
+}
+
+.loggedIn a {
+    display: flex;
+    align-items: center;
+}
+.loggedIn p {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.loggedIn i {
+    font-size: 1em;
+    padding-right: 5px;
+}
