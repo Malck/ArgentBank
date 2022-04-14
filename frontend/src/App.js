@@ -1,29 +1,35 @@
-import './App.css';
-import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import Home from "./pages/Home/Home";
-import Header from "./components/Header/Header" ;
-import Footer from "./components/Footer/Footer" ;
-import Error from "./pages/Error/Error"
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Error from "./pages/Error/Error";
+import Login from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
+import { store } from "./Store/store";
 
 function App() {
   return (
-    <Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
 
-      <Header />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
 
-      <Routes>
+          <Route path="/Login" element={<Login />} />
 
-        <Route exact path="/" element={<Home />}/>
-        
-        <Route path="/*" element={<Error />}/>
-          
-      </Routes>
+          <Route path="/Profile" element={<Profile />} />
 
-      <Footer />
+          <Route path="/*" element={<Error />} />
+        </Routes>
 
-    </Router>
+        <Footer />
+      </Router>
+    </Provider>
   );
 }
 
