@@ -4,6 +4,7 @@ import iconMoney from '../../assets/icon-money.png'
 import iconSecurity from '../../assets/icon-security.png'
 
 export default function HomePage() {
+  
     return (
 
     <div className="homepage">
@@ -20,7 +21,9 @@ export default function HomePage() {
         </div>
 
         <section className="features">
+
           <h2 className="sr-only">Features</h2>
+
           <div className="feature-item">
             <img src={iconChat} alt="Chat Icon" className="feature-icon" />
             <h3 className="feature-item-title">You are our #1 priority</h3>
@@ -31,21 +34,17 @@ export default function HomePage() {
           </div>
 
           <div className="feature-item">
-
             <img src={iconMoney} alt="Chat Icon" className="feature-icon"/>
             <h3 className="feature-item-title">More savings means higher rates</h3>
             <p>The more you save with us, the higher your interest rate will be!</p>
-
           </div>
 
           <div className="feature-item">
             <img src={iconSecurity} alt="Chat Icon" className="feature-icon"/>
             <h3 className="feature-item-title">Security you can trust</h3>
-            <p>
-              We use top of the line encryption to make sure your data and money
-              is always safe.
-            </p>
+            <p>We use top of the line encryption to make sure your data and money is always safe.</p>
           </div>
+
         </section>
 
       </main>

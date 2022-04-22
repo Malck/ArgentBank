@@ -3,7 +3,6 @@
     position: relative;
     height: 800px;
 }
-
 .number-of-error {
     display: flex;
     font-size: 288px;
@@ -14,7 +13,6 @@
 .error h1{
     margin: 0;
 }
-
 .error-message{
     display: block;
         margin: auto;
@@ -36,7 +34,6 @@
     color: #00bc77;
 
 }
-
 
 @media only screen and (max-width: 900px) {
     .number-of-error {

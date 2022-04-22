@@ -7,7 +7,6 @@ const userSlice = createSlice({
             firstName : "",
             lastName: "",
             email: "",
-            password: "",
             token: "",
             loggedIn: false,
         },
@@ -15,26 +14,22 @@ const userSlice = createSlice({
     reducers:{
         
         Recup:(state,action) => { //Dans la page login 
-            //console.log(action);
             state.email = action.payload.email
             state.token = action.payload.token
             state.loggedIn = true
 
         },
         UpdateProfile:(state,action) => {  //dans profile.jsx met a jour le prenom et nom 
-            //console.log(action)
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName   
         },
-        LogOut:(state,action) => {  //test
-            console.log(action)
-            /*state.firstName = action.payload.firstName,
-            state.lastName = action.payload.lastName,
-            state.email = action.payload.email,
-            state.password = action.payload.password,
-            state.token = action.payload.token,*/
+        LogOut:(state,action) => {  //se deconnecte du profil 
             state.loggedIn = false
             
+        },
+        ChangeProfile:(state,action) => { //utilisé pour modifié les infos dans la base de données
+            state.firstName = action.payload.firstName
+            state.lastName = action.payload.lastName 
         }
     
     }
@@ -43,5 +38,6 @@ const userSlice = createSlice({
 export const { Recup } = userSlice.actions
 export const {UpdateProfile} = userSlice.actions
 export const { LogOut } = userSlice.actions
+export const { ChangeProfile } = userSlice.actions
 
 export default userSlice.reducer

@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { LogOut } from "../../Store/TodoSlice";
 
 export default function Header() {
+
   const data = useSelector((state) => state.UserState);
-  const dispatch = useDispatch();
   const isUserLoggedIn = useSelector((state) => state.UserState.loggedIn);
   const first = useSelector((state) => state.UserState.firstName);
+  const dispatch = useDispatch();
 
   return (
 
@@ -28,7 +29,7 @@ export default function Header() {
 
           <div className="user-loggedIn">
             <i className="fa fa-user-circle fa-1x"></i>
-            <p>{first}</p>
+            <Link to="/profile">{first}</Link>
           </div>
 
           <Link
