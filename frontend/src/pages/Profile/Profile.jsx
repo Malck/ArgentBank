@@ -1,106 +1,129 @@
-import {  useEffect } from "react";
-import { useSelector } from 'react-redux'
-import axios from "axios"
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { UpdateProfile } from "../../Store/TodoSlice";
+import { ChangeProfile } from "../../Store/TodoSlice";
+import CardAccount from "./CardAccount";
 
 export default function Profile() {
 
-  const data = useSelector(state => state.UserState)
+  const data = useSelector((state) => state.UserState);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    async function GetProfil(){
-
-      //console.log(data.token)
-
-      if(data.loggedIn === false) { // quand on rafraichit la page on perd les infos du data donc on revient a la page signin comme ça
-                                    //empeche aussi d'aller sur la page /profile sans passer par le signin
-        navigate("/login")
+    async function GetProfil() {
+      
+      /** 
+       * Quand on rafraichit la page on perd les infos du data donc on revient a la page /Login comme ça
+       * Empeche aussi d'aller sur la page /profile sans passer par le signin form
+       */
+      if (data.loggedIn === false) {
+        navigate("/login");
       }
       
-      /*var raw = JSON.stringify({
-        firstName: firstName,
-        lastName: lastName
-        });*/
       const config = {
-          headers: { Authorization: `Bearer ${data.token}` },
-          /*body: raw*/
-       };
-      const bodyParameters = {
+        headers: { Authorization: `Bearer ${data.token}` },
       };
-    
-      axios.post('http://localhost:3001/api/v1/user/profile', bodyParameters, config)
-       .then(function(response) {
-         //console.log(response.data) 
-         dispatch(UpdateProfile({...data, 
-          firstName: response.data.body.firstName, 
-          lastName: response.data.body.lastName}));
-        }) // ici on a acces a toutes les infos du user 
 
-       .catch(console.log);
+      const bodyParameters = {};
 
+      axios
+        .post(
+          "http://localhost:3001/api/v1/user/profile",
+          bodyParameters,
+          config
+        )
+        .then(function (response) {
+          dispatch(UpdateProfile({...data, firstName: response.data.body.firstName, lastName: response.data.body.lastName}));
+        }) 
+        .catch(console.log);
     }
     GetProfil();
-    
-  },[])
+  }, []);
 
-  console.log(data)
+  const first = data.firstName;
+  const last = data.lastName;
 
-  const first = data.firstName
-  const last = data.lastName
+  /**
+   * Fonctions de changement avec le bouton Edit profile
+   */
+  const [isClicked, setIsClicked] = useState(false);
+  const showContent = () => {
+    setIsClicked((isClicked) => !isClicked);
+  };
+
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const handleChangeFirst = (e) => {
+    setFirstName(e.target.value)
+  }
   
+  const updateData = () => {
+
+    const config = {
+      headers: { Authorization: `Bearer ${data.token}` },
+    };
+
+    const bodyParameters = {
+      firstName: firstName,
+      lastName: lastName
+    };
+    axios.put(
+          "http://localhost:3001/api/v1/user/profile",
+          bodyParameters,
+          config
+        )
+        .then(function (response) {
+          dispatch(
+            ChangeProfile({
+              ...data,
+              firstName: firstName,
+              lastName: lastName,
+            })
+          );
+        }) 
+        .catch(console.log);
+
+    console.log(firstName, first);
+}
+
   return (
     <main className="main bg-dark">
 
       <div className="header">
-        <h1>Welcome back
+
+        <h1>
+          Welcome back
           <br />
           {`${first} ${last}`}!
         </h1>
-        <button className="edit-button">Edit Name</button>
+
+        <button onClick={showContent} className="edit-button">
+          Edit Name
+        </button>
+
+        {isClicked && (
+          <div className="edit-section">
+
+            <div className="container-input">
+
+            <input onChange={handleChangeFirst} type="text" value={firstName} placeholder={first} />
+              
+            <input onChange={(e) => setLastName(e.target.value)} type="text" value={lastName} placeholder={last} />
+            </div>
+
+            <div className="container-buttons">
+              <button onClick={updateData}>Save</button>
+              <button onClick={showContent}>Cancel</button>
+            </div>
+          </div>
+        )}
       </div>
-
-      <h2 className="sr-only">Accounts</h2>
-
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-          <p className="account-amount">$2,082.79</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-          <p className="account-amount">$10,928.42</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-          <p className="account-amount">$184.30</p>
-          <p className="account-amount-description">Current Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-
+      <CardAccount />
     </main>
   );
 }
-//const response = await Axios.get(http://localhost:3001/api/v1/user/profile) 
