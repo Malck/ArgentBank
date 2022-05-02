@@ -31,10 +31,8 @@ const userSlice = createSlice({
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName 
         }
-    
     }
 })
-
 export const { Recup } = userSlice.actions
 export const {UpdateProfile} = userSlice.actions
 export const { LogOut } = userSlice.actions

@@ -20,9 +20,9 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
 
-          <Route path="/Login" element={<Login />} />
+          <Route path="/login" element={<Login />} caseSensitive/>
 
-          <Route path="/Profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} caseSensitive/>
 
           <Route path="/*" element={<Error />} />
         </Routes>
