@@ -1,5 +1,4 @@
-# MalcolmCoutteel_13_06042022
-Projet 13 : Argent Bank
+## Openclassrooms Project 13
 
 Utilisez une API pour un compte utilisateur bancaire avec React
 
